@@ -16,7 +16,6 @@ OscP5 oscP5;
 
 // our FaceOSC tracked face dat
 Face face = new Face();
-
 float faceScale = 1;
 
 void setup() {
@@ -54,6 +53,9 @@ void draw() {
     drawNose();
     drawEyebrows();
     print(face.toString());
+    if (face.isSmiling()) {
+      println("SMILING");
+    }
   }
 }
 
@@ -98,29 +100,9 @@ void drawMouth() {
     pointY = (sin(pointY) * face.mouthHeight * mouthHeightFactor) + mLeftCornerY;
     curveVertex(pointX, pointY);
   }
-  /*
-  curveVertex(mLCornerX, mLCornerY);
-  float m1X = (mouthWidth/6) * 1;
-  float m1Y = face.mouthHeight + 4;
-  curveVertex(m1X, m1Y);
-  float m2X = (mouthWidth/6) * 2;
-  float m2Y = face.mouthHeight + 12;
-  curveVertex(m2X, m2Y);
-  float mLowX = (mouthWidth/6) * 3;
-  float mLowY = face.mouthHeight + 20;
-  curveVertex(mLowX, mLowY);
-  float m4X = (mouthWidth/6) * 4;
-  float m4Y = face.mouthHeight + 12;
-  curveVertex(m4X, m4Y);
-  float m5X = (mouthWidth/6) * 5;
-  float m5Y = face.mouthHeight + 4;
-  curveVertex(m5X, m5Y);
-  float mRCornerX = (mouthWidth/2);
-  float mRCornerY = face.mouthHeight;
-  curveVertex(mRCornerX, mRCornerY);
-  */
   endShape();
 }
+
 void drawNose() {
   int distanceFromCenterOfFace = 5;
   int heightOnFace = -1;

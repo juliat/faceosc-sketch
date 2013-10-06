@@ -18,7 +18,30 @@ class Face {
   float jaw;
   float nostrils;
   
+  // past
+  float lastMouthHeight;
+  float lastMouthWidth;
+  
   Face() {}
+  
+  boolean isSmiling() {
+    float minSmileWidth = 15;
+    float minSmileHeight = 2;
+    
+    if ((mouthWidth > minSmileWidth) &&
+        (mouthHeight > minSmileHeight)) {
+        /*
+    float heightEpsilon = 3;
+    float widthEpsilon = 2;
+    float mouthHeightDelta = mouthHeight - lastMouthHeight;
+    float mouthWidthDelta = mouthWidth - lastMouthWidth;
+    
+    if ((mouthHeightDelta >= widthEpsilon) && (mouthWidthDelta >= widthEpsilon)) {
+      */
+      return true;
+    }
+    return false;
+  }
 
   // parse an OSC message from FaceOSC
   // returns true if a message was handled
