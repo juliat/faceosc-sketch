@@ -82,7 +82,44 @@ void drawEyebrows() {
   rect(distanceFromCenterOfFace, face.eyebrowRight * heightOnFace, eyebrowWidth, eyebrowHeight);
 }
 void drawMouth() {
-  ellipse(0, 20, face.mouthWidth* 3, face.mouthHeight * 3);
+  int mouthWidth = 40;
+  int heightOnFace = 14;
+  int mouthHeightFactor = 3;
+  
+  float mLeftCornerX = (mouthWidth/2) * -1;
+  float mLeftCornerY = heightOnFace;
+ 
+  int numPoints = 6;
+  beginShape();
+  for (int i = 0; i <= numPoints; i++) {
+    float pointX = mLeftCornerX + ((mouthWidth/6)*i);
+    float pointY = map(i, 0, 6, 0, PI);
+    
+    pointY = (sin(pointY) * face.mouthHeight * mouthHeightFactor) + mLeftCornerY;
+    curveVertex(pointX, pointY);
+  }
+  /*
+  curveVertex(mLCornerX, mLCornerY);
+  float m1X = (mouthWidth/6) * 1;
+  float m1Y = face.mouthHeight + 4;
+  curveVertex(m1X, m1Y);
+  float m2X = (mouthWidth/6) * 2;
+  float m2Y = face.mouthHeight + 12;
+  curveVertex(m2X, m2Y);
+  float mLowX = (mouthWidth/6) * 3;
+  float mLowY = face.mouthHeight + 20;
+  curveVertex(mLowX, mLowY);
+  float m4X = (mouthWidth/6) * 4;
+  float m4Y = face.mouthHeight + 12;
+  curveVertex(m4X, m4Y);
+  float m5X = (mouthWidth/6) * 5;
+  float m5Y = face.mouthHeight + 4;
+  curveVertex(m5X, m5Y);
+  float mRCornerX = (mouthWidth/2);
+  float mRCornerY = face.mouthHeight;
+  curveVertex(mRCornerX, mRCornerY);
+  */
+  endShape();
 }
 void drawNose() {
   int distanceFromCenterOfFace = 5;
