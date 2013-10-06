@@ -19,8 +19,8 @@ class Face {
   float nostrils;
   
   // past
-  float lastMouthHeight;
-  float lastMouthWidth;
+  float lastEyeHeight;
+  float lastEyebrowHeight;
   
   Face() {}
   
@@ -30,14 +30,17 @@ class Face {
     
     if ((mouthWidth > minSmileWidth) &&
         (mouthHeight > minSmileHeight)) {
-        /*
-    float heightEpsilon = 3;
-    float widthEpsilon = 2;
-    float mouthHeightDelta = mouthHeight - lastMouthHeight;
-    float mouthWidthDelta = mouthWidth - lastMouthWidth;
+      return true;
+    }
+    return false;
+  }
+  
+  boolean isBlinking() {
+    float eyeHeight = (face.eyeLeft + face.eyeRight) / 2;
+    float eyebrowHeight = (face.eyebrowLeft + face.eyebrowRight) / 2;
     
-    if ((mouthHeightDelta >= widthEpsilon) && (mouthWidthDelta >= widthEpsilon)) {
-      */
+    if ((eyeHeight < lastEyeHeight) &&
+        (eyebrowHeight > lastEyebrowHeight)) {
       return true;
     }
     return false;

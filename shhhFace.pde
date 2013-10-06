@@ -53,9 +53,18 @@ void draw() {
     drawNose();
     drawEyebrows();
     print(face.toString());
+    
     if (face.isSmiling()) {
       println("SMILING");
     }
+    if (face.isBlinking()) {
+      println("BLINKED");
+    }
+    
+    face.lastEyeHeight = face.eyeLeft;
+    face.lastEyebrowHeight = face.eyeRight;
+    println("lastEyeHeight " + face.lastEyeHeight);
+    println("lastEyebrowHeight " + face.lastEyebrowHeight);
   }
 }
 
