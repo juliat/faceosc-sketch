@@ -10,7 +10,7 @@
 // adapted from from Greg Borenstein's 2011 example
 // http://www.gregborenstein.com/
 // https://gist.github.com/1603230
-//
+
 import oscP5.*;
 OscP5 oscP5;
 
@@ -18,15 +18,20 @@ OscP5 oscP5;
 Face face = new Face();
 float faceScale = 1;
 
+// for additions
+
+
 void setup() {
   // default size is 640 by 480
   int defaultWidth = 640;
   int defaultHeight = 480;
+  
   faceScale = 0.5; // shrink by half
+  
   int realWidth = (int)(defaultWidth * faceScale);
   int realHeight = (int)(defaultHeight * faceScale);
-  
   size(realWidth, realHeight, OPENGL);
+  
   frameRate(30);
 
   oscP5 = new OscP5(this, 8338);
@@ -37,12 +42,15 @@ void draw() {
   stroke(0);
 
   if (face.found > 0) {
+    
     // draw such that the center of the face is at 0,0
     translate(face.posePosition.x*faceScale, face.posePosition.y*faceScale);
+    
     // scale things down to the size of the tracked face
     // then shrink again by half for convenience
     scale(face.poseScale*0.5);
     
+    // rotate the drawing based on the orientation of the face
     rotateY (0 - face.poseOrientation.y); 
     rotateX (0 - face.poseOrientation.x); 
     rotateZ (    face.poseOrientation.z); 
@@ -50,8 +58,13 @@ void draw() {
     noFill();
     drawEyes();
     drawMouth();
-    drawNose();
-    drawEyebrows();
+    if (face.isSpeaking()) {
+      int mouthCenterX = 0;
+      int mouthCenterY = 0;
+      drawSpeechBubble(mouthCenterX, mouthCenterY);
+    }
+    //drawNose();
+    //drawEyebrows();
     print(face.toString());
     
     if (face.isSmiling()) {
@@ -93,23 +106,17 @@ void drawEyebrows() {
   rect(distanceFromCenterOfFace, face.eyebrowRight * heightOnFace, eyebrowWidth, eyebrowHeight);
 }
 void drawMouth() {
-  int mouthWidth = 40;
+  float mouthWidth = 40;
   int heightOnFace = 14;
   int mouthHeightFactor = 3;
   
-  float mLeftCornerX = (mouthWidth/2) * -1;
+  float mLeftCornerX = 0;
   float mLeftCornerY = heightOnFace;
  
-  int numPoints = 6;
-  beginShape();
-  for (int i = 0; i <= numPoints; i++) {
-    float pointX = mLeftCornerX + ((mouthWidth/6)*i);
-    float pointY = map(i, 0, 6, 0, PI);
-    
-    pointY = (sin(pointY) * face.mouthHeight * mouthHeightFactor) + mLeftCornerY;
-    curveVertex(pointX, pointY);
-  }
-  endShape();
+  float pointX = mLeftCornerX + ((mouthWidth/2));
+  
+  float mouthHeight = face.mouthHeight * mouthHeightFactor;
+  ellipse(mLeftCornerX, mLeftCornerY, mouthWidth, mouthHeight);
 }
 
 void drawNose() {
