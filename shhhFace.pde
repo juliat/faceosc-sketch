@@ -16,6 +16,7 @@ OscP5 oscP5;
 
 // our FaceOSC tracked face dat
 Face face = new Face();
+SpeechBubble speechBubble = new SpeechBubble();
 float faceScale = 1;
 
 // for additions
@@ -59,9 +60,9 @@ void draw() {
     drawEyes();
     drawMouth();
     if (face.isSpeaking()) {
-      int mouthCenterX = 0;
-      int mouthCenterY = 0;
-      drawSpeechBubble(mouthCenterX, mouthCenterY);
+      int sbX = 10;
+      int sbY = -20;
+      speechBubble.draw(sbX, sbY);
     }
     //drawNose();
     //drawEyebrows();
