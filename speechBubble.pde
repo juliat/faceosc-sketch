@@ -4,12 +4,10 @@ class SpeechBubble {
 
   float sbHeight = 150*0.25;
   float sbWidth = 250*0.25;
-  
-  float timeRadiusFactor = face.totalSpeakingTime/100;
-  float radius = (sbHeight/2) + timeRadiusFactor;
-  
-  float xCenter = xPos+sbWidth/2;
-  float yCenter = yPos+sbHeight/2;
+ 
+  float initialRadius = (sbHeight/3);
+  float radius = initialRadius;
+ 
   int numPoints = 30;
   // http://math.rice.edu/~pcmi/sphere/degrad.gif
   float extrusionTheta = (5*PI)/6;
@@ -18,6 +16,17 @@ class SpeechBubble {
   void draw(float xPosition, float yPosition) {
     xPos = xPosition;
     yPos = yPosition;
+    
+    float timeRadiusFactor = face.totalTime/10000;
+    
+    radius = radius + timeRadiusFactor;
+    
+    if (radius < 10) {
+      return;
+    }
+    
+    float xCenter = xPos+sbWidth/2 + timeRadiusFactor;
+    float yCenter = yPos+sbHeight/2 - (timeRadiusFactor/2);
     
     println("DRAWN");
     beginShape();

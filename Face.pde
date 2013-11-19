@@ -23,7 +23,8 @@ class Face {
   float lastEyebrowHeight;
   boolean wasSpeaking = false;
   float startSpeakingTime = 0;
-  float totalSpeakingTime = 0;
+  float totalTime = 0;
+  float stoppedSpeakingTime = 0;
 
   Face() {
   }
@@ -56,33 +57,32 @@ class Face {
      println("MOUTHHEIGHT");
      println(face.mouthHeight);
      */
+     println("totalTime: ");
+     print(totalTime);
+     println("");
+     
     if (face.mouthHeight > speakingMouthHeightThreshold) {
       if (!wasSpeaking) {
+        totalTime = 0;
         startSpeakingTime = millis();
-        println("startSpeakingTime: ");
-        print(startSpeakingTime);
-        println("");
         wasSpeaking = true;
       }
       else {
-        totalSpeakingTime = millis() - startSpeakingTime;
-        println("startSpeakingTime: ");
-        print(startSpeakingTime);
-        println("");
-        println("totalSpeakingTime: ");
-        print(totalSpeakingTime);
-        println("");
-        println("millis: ");
-        print(millis());
-        println("");
+        totalTime = millis() - startSpeakingTime;
       }
       println("SPEAKING");
       return true;
     } 
     else {
-      println("NOT SPEAKING");
-      wasSpeaking = false;
-      totalSpeakingTime = 0;
+      if (wasSpeaking) {
+        println("NOT SPEAKING");
+        stoppedSpeakingTime = millis();
+        wasSpeaking = false;
+        totalTime = 0;
+      }
+      else {
+        totalTime = -1*(millis() - stoppedSpeakingTime);
+      }
       return false;
     }
   }

@@ -27,8 +27,6 @@ void setup() {
   int defaultWidth = 640;
   int defaultHeight = 480;
   
-  faceScale = 0.5; // shrink by half
-  
   int realWidth = (int)(defaultWidth * faceScale);
   int realHeight = (int)(defaultHeight * faceScale);
   size(realWidth, realHeight, OPENGL);
@@ -59,11 +57,14 @@ void draw() {
     noFill();
     drawEyes();
     drawMouth();
-    if (face.isSpeaking()) {
-      int sbX = 10;
-      int sbY = -20;
-      speechBubble.draw(sbX, sbY);
-    }
+    
+    face.isSpeaking();
+    int sbX = 7;
+    int sbY = -15;
+    speechBubble.draw(sbX, sbY);
+      
+    //}
+    
     //drawNose();
     //drawEyebrows();
     print(face.toString());
