@@ -92,8 +92,8 @@ void oscEvent(OscMessage m) {
 void drawEyes() {
   int distanceFromCenterOfFace = 20;
   int heightOnFace = -9;
-  int eyeWidth = 11;
-  int eyeHeight =7;
+  int eyeWidth = 6;
+  int eyeHeight =5;
   ellipse(-1*distanceFromCenterOfFace, face.eyeLeft * heightOnFace, eyeWidth, eyeHeight);
   ellipse(distanceFromCenterOfFace, face.eyeRight * heightOnFace, eyeWidth, eyeHeight);
 }
@@ -108,9 +108,9 @@ void drawEyebrows() {
   rect(distanceFromCenterOfFace, face.eyebrowRight * heightOnFace, eyebrowWidth, eyebrowHeight);
 }
 void drawMouth() {
-  float mouthWidth = 40;
+  float mouthWidth = 30;
   int heightOnFace = 14;
-  int mouthHeightFactor = 3;
+  int mouthHeightFactor = 6;
   
   float mLeftCornerX = 0;
   float mLeftCornerY = heightOnFace;
